@@ -1,0 +1,11 @@
+[package]
+name = "tessella-telemetry"
+version = "0.0.1"
+edition = "2024"
+rust-version.workspace = true
+
+[dependencies]
+tracing.workspace = true
+tracing-appender.workspace = true
+tracing-subscriber.workspace = true
+anyhow.workspace = true

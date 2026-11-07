@@ -1,0 +1,38 @@
+[package]
+name = "tessella-node"
+version = "0.0.1"
+edition = "2021"
+rust-version.workspace = true
+
+# `SOLID-89`: the **composition root** of the data plane. It is the only package that links both the
+# worker library and the HTTP crate, and it exists for that reason alone: `tessella-worker` must not
+# depend on `tessella-api` (it is the DIP edge the SOLID audit found), and Cargo shares
+# `[dependencies]` between the `lib` and the `bin` targets of one package, so the daemon had to move
+# out of it. The binary keeps its name (`tessella-worker`) because that is the operator's contract:
+# `cargo run -p tessella-node --bin tessella-worker`, the Dockerfile `CMD` and
+# `scripts/e2e/*.sh` all keep working with the same artifact path.
+
+[[bin]]
+name = "tessella-worker"
+path = "src/main.rs"
+
+[dependencies]
+tessella-core = { path = "../core" }
+tessella-network = { version = "0.0.1", path = "../network" }
+tessella-api = { version = "0.0.1", path = "../api" }
+tessella-worker = { version = "0.0.1", path = "../worker" }
+
+anyhow.workspace = true
+tokio.workspace = true
+serde.workspace = true
+reqwest.workspace = true
+clap.workspace = true
+tracing.workspace = true
+dirs.workspace = true
+dialoguer.workspace = true
+hex.workspace = true
+
+[features]
+default = ["cuda"]
+cuda = ["tessella-worker/cuda"]
+metal = ["tessella-worker/metal"]

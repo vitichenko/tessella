@@ -1,0 +1,61 @@
+[package]
+name = "tessella-worker"
+version = "0.0.1"
+edition = "2021"
+rust-version.workspace = true
+
+[dependencies]
+tessella-core = { path = "../core" }
+tessella-inference = { path = "../inference" }
+tessella-network = { path = "../network" }
+# `SOLID-89`: the worker used to depend on `tessella-api` (Axum + the whole HTTP crate) only to start
+# its own surface. It now depends on the axum-free port crate and receives the implementation from its
+# composition root (`tessella-node`), so the data plane can be built and tested without the HTTP layer.
+tessella-ingress = { path = "../ingress" }
+tessella-protocol = { path = "../protocol" }
+tessella-storage = { version = "0.0.1", path = "../storage" }
+
+hf-hub.workspace = true
+libp2p.workspace = true
+anyhow.workspace = true
+dirs.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+reqwest.workspace = true
+rkyv.workspace = true
+clap.workspace = true
+toml.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+async-trait.workspace = true
+ed25519-dalek.workspace = true
+hex.workspace = true
+sha2.workspace = true
+regex.workspace = true
+bincode.workspace = true
+futures.workspace = true
+rand.workspace = true
+blake3.workspace = true
+dashmap.workspace = true
+local-ip-address.workspace = true
+candle-core.workspace = true
+candle-nn.workspace = true
+candle-transformers.workspace = true
+safetensors.workspace = true
+tokenizers.workspace = true
+memmap2.workspace = true
+url.workspace = true
+dialoguer.workspace = true
+colored.workspace = true
+comfy-table.workspace = true
+
+[dev-dependencies]
+axum = "0.8"
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+
+[features]
+default = ["cuda"]
+cuda = ["tessella-inference/cuda"]
+metal = ["candle-core/metal", "candle-nn/metal"]

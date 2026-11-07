@@ -1,0 +1,14 @@
+[Unit]
+Description=Tessella P2P Tracker
+After=network.target
+
+[Service]
+Type=simple
+User=victor
+WorkingDirectory=/home/victor/projects/tessella-tracker
+ExecStart=/home/victor/projects/tessella-tracker/tessella-tracker --port 8080 --external-address /dns4/vitichenko.webhop.me/tcp/8080 --headless
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

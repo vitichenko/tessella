@@ -1,0 +1,34 @@
+[package]
+name = "tessella-api"
+version = "0.0.1"
+edition = "2024"
+rust-version.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+axum.workspace = true
+# `TASK-76`/S83: `hop_body::HopBody` implements `axum::extract::FromRequest`, whose trait is declared
+# with `async_trait` in axum 0.7 — so the macro is a real dependency of the crate now, not only of its
+# tests.
+async-trait.workspace = true
+# `SOLID-89`: the ingress port and the API state live there, so the worker can build the state without
+# linking Axum (and this crate implements the port with `axum_host::AxumApiHost`).
+tessella-ingress = { path = "../ingress" }
+tessella-protocol = { path = "../protocol" }
+tessella-core = { version = "0.0.1", path = "../core" }
+tessella-network = { version = "0.0.1", path = "../network" }
+serde.workspace = true
+serde_json.workspace = true
+tokio-stream.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+reqwest.workspace = true
+dashmap.workspace = true
+futures.workspace = true
+uuid = { workspace = true, features = ["v4"] }
+crc32fast.workspace = true
+
+[dev-dependencies]
+# `TASK-56`/S62: the handler tests drive `DistributedInference`/`DistributedSession` with a fake engine,
+# and those traits are declared with `async_trait` (already in the workspace tree).
+async-trait.workspace = true

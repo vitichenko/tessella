@@ -1,0 +1,17 @@
+[package]
+name = "tessella-ingress"
+version = "0.0.1"
+edition = "2024"
+rust-version.workspace = true
+
+# `SOLID-89`: the port the data plane starts its HTTP surface through. It depends on no HTTP
+# framework on purpose — that is the whole point of the crate: `tessella-worker` links *this* and
+# receives the Axum implementation from its composition root (`tessella-node`).
+[dependencies]
+tessella-core = { path = "../core" }
+tessella-protocol = { path = "../protocol" }
+tessella-network = { path = "../network" }
+anyhow.workspace = true
+async-trait.workspace = true
+dashmap.workspace = true
+tokio.workspace = true

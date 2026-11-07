@@ -1,0 +1,65 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+debug
+*.pdb
+**/mutants.out*/
+
+# Compiled binaries in root (never commit)
+/tessella
+
+# Model artifacts — downloaded at runtime from HF Hub, never committed
+*.safetensors
+*.bin
+tokenizer.json
+tokenizer_config.json
+special_tokens_map.json
+vocab.json
+merges.txt
+/config.json
+
+# Benchmark output
+benchmark_results.json
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Databases & Keys
+*.db
+*.db-*
+*.key
+client.key
+
+# Configuration
+config/worker.toml
+config/tracker.toml
+config/client.toml
+bench_worker_*.toml
+
+# Logs & Temp
+logs/
+scratch/
+tasks/
+responses/
+.gemini/
+*.log
+prompts.txt
+commands.txt
+config/worker1.toml
+config/worker2.toml
+config/worker3.toml
+config/swarm/
+models/
+scripts/.venv/
+benchmark/
+feedback.md

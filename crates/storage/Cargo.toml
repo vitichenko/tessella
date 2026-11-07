@@ -1,0 +1,30 @@
+[package]
+name = "tessella-storage"
+version = "0.0.1"
+edition = "2024"
+rust-version.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+blake3.workspace = true
+futures.workspace = true
+tessella-core = { version = "0.0.1", path = "../core" }
+reqwest.workspace = true
+rusqlite.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+async-trait.workspace = true
+# `TASK-35`/S41: the dedup key of a federated ledger entry is the hex of the blake3 digest of the
+# signed statement, so the ledger stores a comparable `TEXT` and the log can name it.
+hex.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+# Only for `federated_ledger_tests::an_ignored_entry_is_logged_with_its_hash`: `TASK-35` promises that
+# an entry dropped by dedup leaves a line with its hash, and the only way to prove it is capturing
+# the `warn!`. It is a dev-dependency, so no production build compiles it (same choice as
+# `tessella-network` in S21).
+tracing-subscriber.workspace = true
+

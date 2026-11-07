@@ -1,0 +1,36 @@
+[package]
+name = "tessella-cli"
+version = "0.0.1"
+edition = "2021"
+rust-version.workspace = true
+
+[dependencies]
+tessella-core = { path = "../core" }
+tessella-inference = { path = "../inference" }
+tessella-telemetry = { path = "../telemetry" }
+tessella-network = { version = "0.0.1", path = "../network" }
+tessella-api = { version = "0.0.1", path = "../api" }
+hf-hub.workspace = true
+dashmap.workspace = true
+candle-core.workspace = true
+tokio-stream.workspace = true
+
+anyhow.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+reqwest.workspace = true
+futures-util = { workspace = true }
+clap.workspace = true
+tracing.workspace = true
+rkyv.workspace = true
+axum.workspace = true
+blake3.workspace = true
+hex.workspace = true
+dirs.workspace = true
+toml.workspace = true
+dialoguer.workspace = true
+colored.workspace = true
+comfy-table.workspace = true
+bytes = "1.12.0"
+

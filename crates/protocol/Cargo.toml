@@ -1,0 +1,25 @@
+[package]
+name = "tessella-protocol"
+version = "0.0.1"
+edition = "2024"
+# MSRV **propio**, no el del workspace (`TOOL-13`): `musivum` compila esta crate como dependencia de
+# ruta (`musivum-core` → `tessella-protocol`) y su MSRV declarado es 1.87, así que el suelo de aquí no
+# puede subir por encima de ese valor sin romper la promesa del otro workspace — cargo rechaza una
+# dependencia que exige más que el toolchain activo («requires rustc 1.89») antes de compilar nada.
+# El 1.87 no es una herencia: lo fija `src/worker.rs:203` (`usize::is_multiple_of`, estabilizado en
+# 1.87) y está medido — `cargo +1.87 check -p tessella-protocol --all-targets` sale 0, y el propio
+# MSRV de musivum se midió compilando esta crate.
+rust-version = "1.87"
+
+[features]
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+rkyv = { workspace = true, features = ["validation", "bytecheck"] }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+sha2 = { workspace = true }
+ed25519-dalek = { workspace = true }
+bincode = { workspace = true }
+crc32fast = { workspace = true }

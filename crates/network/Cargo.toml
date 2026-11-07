@@ -1,0 +1,27 @@
+[package]
+name = "tessella-network"
+version = "0.0.1"
+edition = "2024"
+rust-version.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+libp2p.workspace = true
+tessella-core = { version = "0.0.1", path = "../core" }
+tessella-protocol = { version = "0.0.1", path = "../protocol" }
+tracing.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+dashmap.workspace = true
+futures.workspace = true
+async-trait.workspace = true
+# TASK-19: the raw Ed25519 public key (64 hex) that `/p2p_id` publishes so an operator can pin it.
+hex.workspace = true
+
+[dev-dependencies]
+# Only for the diagnostics of the DHT test (`tests/kademlia_discovery.rs`): libp2p-kad explains at
+# `debug!` why a query request failed, and without a subscriber those lines are invisible. It is a
+# dev-dependency so no production crate compiles it.
+tracing-subscriber.workspace = true
